@@ -3,49 +3,100 @@
 <head>
 <meta charset="utf-8">
 <title>Let's Rand imgur!</title>
+<style>
+body{
+	overflow: hidden;
+}
+#forumCode{
+	width: 400px;
+	height: 200px;
+}
+#tempStorage{
+	visibility: hidden;
+}
+#tempStorage img{
+	max-height: 200px;
+}
+</style>
 <script type="text/javascript" src="js/randexp.min.js"></script>
 <script type="text/javascript">
-function init(){
+window.onload = function(){
 	var textArea = document.getElementById("forumCode");
-	var imgurCache = [];
 	var fileExt = [".jpg", ".png", ".gif"];
-	function newImgur(){
-		var length = document.getElementById("imgurQuantity").value;
-		while(imgurCache.length<length){
-			var imgur = document.createElement("img");
-			var randImgur = new RandExp(new RegExp(/[A-Za-z0-9]{5,6}/)).gen();
-			var randFileExt = fileExt[Math.floor(Math.random()*3)];
-			imgur.src = "http://i.imgur.com/" + randImgur + randFileExt;
-			imgurCache.push(imgur.src);
+	var tempStorage = document.getElementById("tempStorage");
+	var imagesList = tempStorage.getElementsByTagName("img");
+	var tempImages, doneImages;
+	var startGenerate;
+	function Imgur(){
+		var randCode = new RandExp(new RegExp(/[A-Za-z0-9]{5,6}/)).gen();
+		var randFileExt = fileExt[Math.floor(Math.random()*3)];
+		var newImage = new Image();
+		newImage.id = randCode;
+		newImage.src = "http://i.imgur.com/" + randCode + randFileExt;
+		return newImage;
+	}
+	function genRandImgur(){
+		textArea.value = "Generating images...";
+		var needImages = parseInt(document.getElementById("needImages").value);
+		if(tempImages < needImages){
+			tempImages++;
+			var newImage = new Imgur();
+			tempStorage.appendChild(newImage);
+			newImage.onload = function(){
+				if(this.offsetWidth == 161 && this.offsetHeight == 81){
+					tempImages--;
+					this.remove();
+				}else{
+					doneImages++;
+					document.getElementById("doneImages").innerHTML = "(" + doneImages + " found)";
+				}
+			}
+			newImage.onerror = function(){
+				tempImages--;
+				this.remove();
+			}
 		}
-		for(i=0; i<imgurCache.length; i++){
-			textArea.value += "[img]" + imgurCache[i] + "[/img]\n";
+		if(doneImages == needImages){
+			clearInterval(startGenerate);
+			document.getElementById("doneImages").innerHTML = "(All done!)";
+			textArea.value = "";
+			for(i=0; i<imagesList.length; i++){
+				textArea.value += "\[img\]" + imagesList[i].src + "\[\/img\]\n";
+			}
+			textArea.selectionStart = 0;
+			textArea.selectionEnd = textArea.value.length;
+			textArea.focus();
 		}
-		textArea.selectionStart = 0;
-		textArea.selectionEnd = textArea.value.length;
-		textArea.focus();
-		console.log(imgurCache);
 	}
 	document.getElementById("genImgur").onclick = function(){
-		imgurCache = [];
-		textArea.value = "";
-		newImgur();
+		clearInterval(startGenerate);
+		tempImages = 0;
+		doneImages = 0;
+		tempStorage.innerHTML = "";
+		startGenerate = setInterval(genRandImgur, 100);
 	}
 }
 </script>
 </head>
 
-<body onLoad="init()">
+<body>
 <center>
-<h1>Let's Rand imgur!</h1>
-<h6>(powered by randexp.js)</h6>
-<textarea id="forumCode" style="width: 400px; height: 200px;"></textarea>
-<br>
-<div style="width: 400px;">
-<span style="float: left;"><button type="button" id="genImgur">Generate</button> <input type="text" id="imgurQuantity" value="5" style="width: 10px;"/> imgur images!</span>
-<span style="float: right;"><input type="checkbox" id="showImg" onChange="this.checked=false; alert('Don\'t cheat!');"/><label for="showImg">Show images</label></span>
-</div>
+	<h1>Let's Rand imgur!</h1>
+	<h6>(powered by randexp.js)</h6>
+    <hr />
+	<textarea id="forumCode"></textarea>
+	<br>
+		<span>
+			<button type="button" id="genImgur">Generate</button>
+			<input type="text" id="needImages" value="5" style="text-align: center; width: 30px;" />
+			imgur images!
+		</span>
+		<span>
+			<input type="checkbox" id="showImages" onChange="this.checked=false; alert('Don\'t cheat!');" />
+			<label for="showImages">Show images</label>
+		</span>
+		<span id="doneImages">(0 found)</span>
 </center>
-<div id="imgurDisplay"></div>
+<div id="tempStorage"></div>
 </body>
 </html>
