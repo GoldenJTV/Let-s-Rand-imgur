@@ -315,7 +315,7 @@ window.onload = function(){
 				textArea.value += "\[img\]" + imagesList[i].src + "\[\/img\]\n";
 			}
 			textArea.selectionStart = 0;
-			textArea.selectionEnd = textArea.value.length;
+			textArea.selectionEnd = textArea.value.length-1;
 			textArea.focus();
 		}
 	}
