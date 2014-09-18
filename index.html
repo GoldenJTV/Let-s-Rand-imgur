@@ -4,12 +4,41 @@
 <meta charset="utf-8">
 <title>Let's Rand imgur!</title>
 <style>
-body{
+
+body, html{
+	background-color: #1D1D1D;
 	overflow: hidden;
+	color: #ededed;	
+	margin: 0px;
+	padding: 0px;
+}
+hr{
+	width: 450px;
+	border: solid 1px #333;
+}
+#wrapper{
+	text-align: center;
+	position: absolute;
+	top: 0%;
+	left: 50%;
+	transform: translate(-50%, 0%);
+	-webkit-transform: translate(-50%, 0%);
+	-moz-transform: translate(-50%, 0%);
+	-o-transform: translate(-50%, 0%);
+}
+#showImages{
+	vertical-align: text-bottom;
 }
 #forumCode{
-	width: 400px;
+	width: 450px;
 	height: 200px;
+	color: #ededed;	
+	background-color: #1D1D1D;
+	font-size: 16px;
+	text-align: center;
+	resize: none;
+	border: solid 1px #333;
+	margin: 10px 0px;
 }
 #tempStorage{
 	visibility: hidden;
@@ -17,19 +46,239 @@ body{
 #tempStorage img{
 	max-height: 200px;
 }
+button, input{
+	background-color: #ededed;
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topright: 5px;
+	border-top-right-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	border-bottom-right-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	transition: all 0.2s linear; 
+	-webkit-transition: all 0.2s linear; 
+	-moz-transition: all 0.2s linear; 
+	-o-transition: all 0.2s linear;
+	border-bottom-left-radius: 5px;
+	text-indent: 0px;
+	border: 1px solid #dcdcdc;
+	display: inline-block;
+	color: #1D1D1D;
+	font-family: Arial;
+	font-size: 12px;
+	font-weight: bold;
+	font-style: normal;
+	height: auto;
+	text-decoration: none;
+	text-align: center;
+	text-shadow: 2px 2px 2px #ffffff;
+}
+button:hover,
+input:hover{
+	background-color: #afafaf;
+}
+#overlay{
+	width: 100%;
+	height: 100%;
+	color: #ededed;	
+	margin: 0px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: none;
+	z-index: 1000;
+	background-color: rgba(29, 29, 29, 0.6);
+}
+.generating #overlay{
+	display: block;
+}
+.spinner-wrapper{
+	position: absolute;
+	z-index: 1001;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	visibility: hidden;
+}
+.generating .spinner-wrapper{
+	visibility: visible;
+}
+.spinner-cell{
+	position: absolute;
+	width: 6px;
+	height: 4px;
+	box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 1px;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 1px;
+	-moz-box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 1px;
+	transform-origin: left 50% 0px;
+	-webkit-transform-origin: left 50% 0px;
+	-moz-transform-origin: left 50% 0px;
+	-o-transform-origin: left 50% 0px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+	-webkit-border-top-left-radius: 2px;
+	-webkit-border-top-right-radius: 2px;
+	-webkit-border-bottom-right-radius: 2px;
+	-webkit-border-bottom-left-radius: 2px;
+	-moz-border-top-left-radius: 2px;
+	-moz-border-top-right-radius: 2px;
+	-moz-border-bottom-right-radius: 2px;
+	-moz-border-bottom-left-radius: 2px;
+	background: rgb(255, 255, 255);
+}
+.spinner-cell-wrapper{
+	position: absolute;
+	top: -2px;
+	opacity: 0.25; 
+}
+@-webkit-keyframes spinning-00{
+    0% {opacity: 1;}
+    100% {opacity: 0.0980392;}
+}
+@-webkit-keyframes spinning-01{
+    0% {opacity: 1;}
+    100% {opacity: 0.0980392;}
+}
+@-webkit-keyframes spinning-02{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+@-webkit-keyframes spinning-03{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+@-webkit-keyframes spinning-04{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+@-webkit-keyframes spinning-05{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+@-webkit-keyframes spinning-06{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+@-webkit-keyframes spinning-07{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+@-webkit-keyframes spinning-08{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+@-webkit-keyframes spinning-09{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+@-webkit-keyframes spinning-10{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+@-webkit-keyframes spinning-11{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+@keyframes spinning-00{
+    0% {opacity: 1;}
+    100% {opacity: 0.0980392;}
+}
+@keyframes spinning-01{
+    0% {opacity: 1;}
+    100% {opacity: 0.0980392;}
+}
+@keyframes spinning-02{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+@keyframes spinning-03{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+@keyframes spinning-04{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+@keyframes spinning-05{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+@keyframes spinning-06{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+@keyframes spinning-07{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+@keyframes spinning-08{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+@keyframes spinning-09{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+@keyframes spinning-10{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+@keyframes spinning-11{
+    from {opacity: 1;}
+    to {opacity: 0.0980392;}
+}
+#progress-bar{ 
+	height: 10px;
+	background: #555;
+	-moz-border-radius: 25px;
+	-webkit-border-radius: 25px;
+	border-radius: 25px;
+	padding: 10px;
+	-webkit-box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+	-moz-box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+	box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+	margin-top: 40px;
+}
+#progress-bar span{
+	background-color: white;
+	height: 100%;
+	width: 0%;
+	position: relative;
+	display: block;
+	border-radius: 10px;
+	transition: all 0.5s linear; 
+	-webkit-transition: all 0.5s linear; 
+	-moz-transition: all 0.5s linear; 
+	-o-transition: all 0.5s linear;
+}
 </style>
-<script type="text/javascript" src="js/randexp.min.js"></script>
 <script type="text/javascript">
 window.onload = function(){
+	var randString = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	var textArea = document.getElementById("forumCode");
 	var fileExt = [".jpg", ".png", ".gif"];
 	var tempStorage = document.getElementById("tempStorage");
 	var imagesList = tempStorage.getElementsByTagName("img");
 	var tempImages, doneImages;
 	var startGenerate;
+	function RandInt(min, max){
+		return Math.floor(Math.random() * (max-min+1)) + min;
+	}
 	function Imgur(){
-		var randCode = new RandExp(new RegExp(/[A-Za-z0-9]{5,6}/)).gen();
-		var randFileExt = fileExt[Math.floor(Math.random()*3)];
+		var randCode = "";
+		for(i=0; i<RandInt(5, 6); i++){
+			randCode += randString.charAt(RandInt(0, randString.length));
+		}
+		var randFileExt = fileExt[RandInt(0, 2)];
 		var newImage = new Image();
 		newImage.id = randCode;
 		newImage.src = "http://i.imgur.com/" + randCode + randFileExt;
@@ -40,7 +289,7 @@ window.onload = function(){
 		var needImages = parseInt(document.getElementById("needImages").value);
 		if(tempImages < needImages){
 			tempImages++;
-			var newImage = new Imgur();
+			var newImage = Imgur();
 			tempStorage.appendChild(newImage);
 			newImage.onload = function(){
 				if(this.offsetWidth == 161 && this.offsetHeight == 81){
@@ -48,7 +297,8 @@ window.onload = function(){
 					this.remove();
 				}else{
 					doneImages++;
-					document.getElementById("doneImages").innerHTML = "(" + doneImages + " found)";
+					document.getElementById("progress").style.width = (doneImages/needImages)*100 + "%";
+					document.getElementById("doneImages").innerHTML = "(" + doneImages + " done.)";
 				}
 			}
 			newImage.onerror = function(){
@@ -58,6 +308,7 @@ window.onload = function(){
 		}
 		if(doneImages == needImages){
 			clearInterval(startGenerate);
+			document.getElementsByTagName("body")[0].className = "";
 			document.getElementById("doneImages").innerHTML = "(All done!)";
 			textArea.value = "";
 			for(i=0; i<imagesList.length; i++){
@@ -69,6 +320,9 @@ window.onload = function(){
 		}
 	}
 	document.getElementById("genImgur").onclick = function(){
+		document.getElementsByTagName("body")[0].className = "generating";
+		document.getElementById("progress").style.width = "0%";
+		document.getElementById("doneImages").innerHTML = "(0 done.)";
 		clearInterval(startGenerate);
 		tempImages = 0;
 		doneImages = 0;
@@ -80,23 +334,74 @@ window.onload = function(){
 </head>
 
 <body>
-<center>
+<div id="overlay"></div>
+<!--Loading spinner from Twitch.tv-->
+<div class="spinner-wrapper" id="spinner">
+    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-00 0.7142857142857143s linear infinite;">
+        <div class="spinner-cell" style="-webkit-transform: rotate(0deg) translate(10px, 0px); ">
+        </div>
+    </div>
+    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-01 0.7142857142857143s linear infinite 0.0595238095s;">
+        <div class="spinner-cell" style="-webkit-transform: rotate(30deg) translate(10px, 0px);">
+        </div>
+    </div>
+    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-02 0.7142857142857143s linear infinite 0.119047619s;">
+        <div class="spinner-cell" style="-webkit-transform: rotate(60deg) translate(10px, 0px);">
+        </div>
+    </div>
+    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-03 0.7142857142857143s linear infinite 0.1785714285s;">
+        <div class="spinner-cell" style="-webkit-transform: rotate(90deg) translate(10px, 0px);">
+        </div>
+    </div>
+    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-04 0.7142857142857143s linear infinite 0.238095238s;">
+        <div class="spinner-cell" style="-webkit-transform: rotate(120deg) translate(10px, 0px);">
+        </div>
+    </div>
+    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-05 0.7142857142857143s linear infinite 0.2976190475s;">
+        <div class="spinner-cell" style="-webkit-transform: rotate(150deg) translate(10px, 0px);">
+        </div>
+    </div>
+    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-06 0.7142857142857143s linear infinite 0.357142857s;">
+        <div class="spinner-cell" style="-webkit-transform: rotate(180deg) translate(10px, 0px);">
+        </div>
+    </div>
+    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-07 0.7142857142857143s linear infinite 0.41666666649999995s;">
+        <div class="spinner-cell" style="-webkit-transform: rotate(210deg) translate(10px, 0px);">
+        </div>
+    </div>
+    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-08 0.7142857142857143s linear infinite 0.476190476s;">
+        <div class="spinner-cell" style="-webkit-transform: rotate(240deg) translate(10px, 0px);">
+        </div>
+    </div>
+    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-09 0.7142857142857143s linear infinite 0.5357142855s;">
+        <div class="spinner-cell" style="-webkit-transform: rotate(270deg) translate(10px, 0px);">
+        </div>
+    </div>
+    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-10 0.7142857142857143s linear infinite 0.595238095s;">
+        <div class="spinner-cell" style="-webkit-transform: rotate(300deg) translate(10px, 0px);">
+        </div>
+    </div>
+    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-11 0.7142857142857143s linear infinite 0.6547619044999999s;">
+        <div class="spinner-cell" style="-webkit-transform: rotate(330deg) translate(10px, 0px);">
+        </div>
+    </div>
+</div>
+<!--End of loading spinner-->
+<div id="wrapper">
 	<h1>Let's Rand imgur!</h1>
-	<h6>(powered by randexp.js)</h6>
-    <hr />
+	<hr />
 	<textarea id="forumCode"></textarea>
 	<br>
-		<span>
-			<button type="button" id="genImgur">Generate</button>
-			<input type="text" id="needImages" value="5" style="text-align: center; width: 30px;" />
-			imgur images!
-		</span>
-		<span>
-			<input type="checkbox" id="showImages" onChange="this.checked=false; alert('Don\'t cheat!');" />
-			<label for="showImages">Show images</label>
-		</span>
-		<span id="doneImages">(0 found)</span>
-</center>
+    <div>
+    <span style="float: left;">
+        <button type="button" id="genImgur">Generate</button>
+        <input type="text" id="needImages" value="5" style="width: 30px;" />
+        imgur images!
+    </span>
+    <span id="doneImages" style="float: right;">(Ready)</span>
+    </div>
+    <div id="progress-bar"><span id="progress"></span></div>
+</div>
 <div id="tempStorage"></div>
 </body>
 </html>
