@@ -4,8 +4,7 @@
 <meta charset="utf-8">
 <title>Let's Rand imgur!</title>
 <style>
-
-body, html{
+body{
 	background-color: #1D1D1D;
 	overflow: hidden;
 	color: #ededed;	
@@ -95,146 +94,6 @@ input:hover{
 }
 .generating #overlay{
 	display: block;
-}
-.spinner-wrapper{
-	position: absolute;
-	z-index: 1001;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	-webkit-transform: translate(-50%, -50%);
-	-moz-transform: translate(-50%, -50%);
-	-o-transform: translate(-50%, -50%);
-	visibility: hidden;
-}
-.generating .spinner-wrapper{
-	visibility: visible;
-}
-.spinner-cell{
-	position: absolute;
-	width: 6px;
-	height: 4px;
-	box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 1px;
-	-webkit-box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 1px;
-	-moz-box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 1px;
-	transform-origin: left 50% 0px;
-	-webkit-transform-origin: left 50% 0px;
-	-moz-transform-origin: left 50% 0px;
-	-o-transform-origin: left 50% 0px;
-	border-top-left-radius: 2px;
-	border-top-right-radius: 2px;
-	border-bottom-right-radius: 2px;
-	border-bottom-left-radius: 2px;
-	-webkit-border-top-left-radius: 2px;
-	-webkit-border-top-right-radius: 2px;
-	-webkit-border-bottom-right-radius: 2px;
-	-webkit-border-bottom-left-radius: 2px;
-	-moz-border-top-left-radius: 2px;
-	-moz-border-top-right-radius: 2px;
-	-moz-border-bottom-right-radius: 2px;
-	-moz-border-bottom-left-radius: 2px;
-	background: rgb(255, 255, 255);
-}
-.spinner-cell-wrapper{
-	position: absolute;
-	top: -2px;
-	opacity: 0.25; 
-}
-@-webkit-keyframes spinning-00{
-    0% {opacity: 1;}
-    100% {opacity: 0.0980392;}
-}
-@-webkit-keyframes spinning-01{
-    0% {opacity: 1;}
-    100% {opacity: 0.0980392;}
-}
-@-webkit-keyframes spinning-02{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
-}
-@-webkit-keyframes spinning-03{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
-}
-@-webkit-keyframes spinning-04{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
-}
-@-webkit-keyframes spinning-05{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
-}
-@-webkit-keyframes spinning-06{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
-}
-@-webkit-keyframes spinning-07{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
-}
-@-webkit-keyframes spinning-08{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
-}
-@-webkit-keyframes spinning-09{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
-}
-@-webkit-keyframes spinning-10{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
-}
-@-webkit-keyframes spinning-11{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
-}
-@keyframes spinning-00{
-    0% {opacity: 1;}
-    100% {opacity: 0.0980392;}
-}
-@keyframes spinning-01{
-    0% {opacity: 1;}
-    100% {opacity: 0.0980392;}
-}
-@keyframes spinning-02{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
-}
-@keyframes spinning-03{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
-}
-@keyframes spinning-04{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
-}
-@keyframes spinning-05{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
-}
-@keyframes spinning-06{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
-}
-@keyframes spinning-07{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
-}
-@keyframes spinning-08{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
-}
-@keyframes spinning-09{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
-}
-@keyframes spinning-10{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
-}
-@keyframes spinning-11{
-    from {opacity: 1;}
-    to {opacity: 0.0980392;}
 }
 #progress-bar{ 
 	height: 10px;
@@ -335,58 +194,6 @@ window.onload = function(){
 
 <body>
 <div id="overlay"></div>
-<!--Loading spinner from Twitch.tv-->
-<div class="spinner-wrapper" id="spinner">
-    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-00 0.7142857142857143s linear infinite;">
-        <div class="spinner-cell" style="-webkit-transform: rotate(0deg) translate(10px, 0px); ">
-        </div>
-    </div>
-    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-01 0.7142857142857143s linear infinite 0.0595238095s;">
-        <div class="spinner-cell" style="-webkit-transform: rotate(30deg) translate(10px, 0px);">
-        </div>
-    </div>
-    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-02 0.7142857142857143s linear infinite 0.119047619s;">
-        <div class="spinner-cell" style="-webkit-transform: rotate(60deg) translate(10px, 0px);">
-        </div>
-    </div>
-    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-03 0.7142857142857143s linear infinite 0.1785714285s;">
-        <div class="spinner-cell" style="-webkit-transform: rotate(90deg) translate(10px, 0px);">
-        </div>
-    </div>
-    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-04 0.7142857142857143s linear infinite 0.238095238s;">
-        <div class="spinner-cell" style="-webkit-transform: rotate(120deg) translate(10px, 0px);">
-        </div>
-    </div>
-    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-05 0.7142857142857143s linear infinite 0.2976190475s;">
-        <div class="spinner-cell" style="-webkit-transform: rotate(150deg) translate(10px, 0px);">
-        </div>
-    </div>
-    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-06 0.7142857142857143s linear infinite 0.357142857s;">
-        <div class="spinner-cell" style="-webkit-transform: rotate(180deg) translate(10px, 0px);">
-        </div>
-    </div>
-    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-07 0.7142857142857143s linear infinite 0.41666666649999995s;">
-        <div class="spinner-cell" style="-webkit-transform: rotate(210deg) translate(10px, 0px);">
-        </div>
-    </div>
-    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-08 0.7142857142857143s linear infinite 0.476190476s;">
-        <div class="spinner-cell" style="-webkit-transform: rotate(240deg) translate(10px, 0px);">
-        </div>
-    </div>
-    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-09 0.7142857142857143s linear infinite 0.5357142855s;">
-        <div class="spinner-cell" style="-webkit-transform: rotate(270deg) translate(10px, 0px);">
-        </div>
-    </div>
-    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-10 0.7142857142857143s linear infinite 0.595238095s;">
-        <div class="spinner-cell" style="-webkit-transform: rotate(300deg) translate(10px, 0px);">
-        </div>
-    </div>
-    <div class="spinner-cell-wrapper" style="-webkit-animation: spinning-11 0.7142857142857143s linear infinite 0.6547619044999999s;">
-        <div class="spinner-cell" style="-webkit-transform: rotate(330deg) translate(10px, 0px);">
-        </div>
-    </div>
-</div>
-<!--End of loading spinner-->
 <div id="wrapper">
 	<h1>Let's Rand imgur!</h1>
 	<hr />
