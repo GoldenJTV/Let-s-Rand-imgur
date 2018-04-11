@@ -1,214 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>Let's Rand imgur!</title>
-<style>
-body{
-	background-color: #1D1D1D;
-	overflow: hidden;
-	color: #ededed;	
-	margin: 0px;
-	padding: 0px;
-}
-hr{
-	width: 450px;
-	border: solid 1px #333;
-}
-#wrapper{
-	text-align: center;
-	position: absolute;
-	top: 0%;
-	left: 50%;
-	transform: translate(-50%, 0%);
-	-webkit-transform: translate(-50%, 0%);
-	-moz-transform: translate(-50%, 0%);
-	-o-transform: translate(-50%, 0%);
-}
-#showImages{
-	vertical-align: text-bottom;
-}
-#forumCode{
-	width: 450px;
-	height: 200px;
-	color: #ededed;	
-	background-color: #1D1D1D;
-	font-size: 16px;
-	text-align: center;
-	resize: none;
-	border: solid 1px #333;
-	margin: 10px 0px;
-}
-#tempStorage{
-	visibility: hidden;
-}
-#tempStorage img{
-	max-height: 200px;
-}
-button, input{
-	background-color: #ededed;
-	-webkit-border-top-left-radius: 5px;
-	-moz-border-radius-topleft: 5px;
-	border-top-left-radius: 5px;
-	-webkit-border-top-right-radius: 5px;
-	-moz-border-radius-topright: 5px;
-	border-top-right-radius: 5px;
-	-webkit-border-bottom-right-radius: 5px;
-	-moz-border-radius-bottomright: 5px;
-	border-bottom-right-radius: 5px;
-	-webkit-border-bottom-left-radius: 5px;
-	-moz-border-radius-bottomleft: 5px;
-	transition: all 0.2s linear; 
-	-webkit-transition: all 0.2s linear; 
-	-moz-transition: all 0.2s linear; 
-	-o-transition: all 0.2s linear;
-	border-bottom-left-radius: 5px;
-	text-indent: 0px;
-	border: 1px solid #dcdcdc;
-	display: inline-block;
-	color: #1D1D1D;
-	font-family: Arial;
-	font-size: 12px;
-	font-weight: bold;
-	font-style: normal;
-	height: auto;
-	text-decoration: none;
-	text-align: center;
-	text-shadow: 2px 2px 2px #ffffff;
-}
-button:hover,
-input:hover{
-	background-color: #afafaf;
-}
-#overlay{
-	width: 100%;
-	height: 100%;
-	color: #ededed;	
-	margin: 0px;
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	display: none;
-	z-index: 1000;
-	background-color: rgba(29, 29, 29, 0.6);
-}
-.generating #overlay{
-	display: block;
-}
-#progress-bar{ 
-	height: 10px;
-	background: #555;
-	-moz-border-radius: 25px;
-	-webkit-border-radius: 25px;
-	border-radius: 25px;
-	padding: 10px;
-	-webkit-box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
-	-moz-box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
-	box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
-	margin-top: 40px;
-}
-#progress-bar span{
-	background-color: white;
-	height: 100%;
-	width: 0%;
-	position: relative;
-	display: block;
-	border-radius: 10px;
-	transition: all 0.5s linear; 
-	-webkit-transition: all 0.5s linear; 
-	-moz-transition: all 0.5s linear; 
-	-o-transition: all 0.5s linear;
-}
-</style>
-<script type="text/javascript">
-window.onload = function(){
-	var randString = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	var textArea = document.getElementById("forumCode");
-	var fileExt = [".jpg", ".png", ".gif"];
-	var tempStorage = document.getElementById("tempStorage");
-	var imagesList = tempStorage.getElementsByTagName("img");
-	var tempImages, doneImages;
-	var startGenerate;
-	function RandInt(min, max){
-		return Math.floor(Math.random() * (max-min+1)) + min;
-	}
-	function Imgur(){
-		var randCode = "";
-		for(i=0; i<RandInt(5, 6); i++){
-			randCode += randString.charAt(RandInt(0, randString.length));
-		}
-		var randFileExt = fileExt[RandInt(0, 2)];
-		var newImage = new Image();
-		newImage.id = randCode;
-		newImage.src = "http://i.imgur.com/" + randCode + randFileExt;
-		return newImage;
-	}
-	function genRandImgur(){
-		textArea.value = "Generating images...";
-		var needImages = parseInt(document.getElementById("needImages").value);
-		if(tempImages < needImages){
-			tempImages++;
-			var newImage = Imgur();
-			tempStorage.appendChild(newImage);
-			newImage.onload = function(){
-				if(this.offsetWidth == 161 && this.offsetHeight == 81){
-					tempImages--;
-					this.remove();
-				}else{
-					doneImages++;
-					document.getElementById("progress").style.width = (doneImages/needImages)*100 + "%";
-					document.getElementById("doneImages").innerHTML = "(" + doneImages + " done.)";
-				}
-			}
-			newImage.onerror = function(){
-				tempImages--;
-				this.remove();
-			}
-		}
-		if(doneImages == needImages){
-			clearInterval(startGenerate);
-			document.getElementsByTagName("body")[0].className = "";
-			document.getElementById("doneImages").innerHTML = "(All done!)";
-			textArea.value = "";
-			for(i=0; i<imagesList.length; i++){
-				textArea.value += "\[img\]" + imagesList[i].src + "\[\/img\]\n";
-			}
-			textArea.selectionStart = 0;
-			textArea.selectionEnd = textArea.value.length-1;
-			textArea.focus();
-		}
-	}
-	document.getElementById("genImgur").onclick = function(){
-		document.getElementsByTagName("body")[0].className = "generating";
-		document.getElementById("progress").style.width = "0%";
-		document.getElementById("doneImages").innerHTML = "(0 done.)";
-		clearInterval(startGenerate);
-		tempImages = 0;
-		doneImages = 0;
-		tempStorage.innerHTML = "";
-		startGenerate = setInterval(genRandImgur, 100);
-	}
-}
-</script>
+    <meta charset="utf-8">
+    <title>Let's Rand imgur!</title>
+    <link href="style.css" rel="stylesheet"/>
 </head>
 
 <body>
 <div id="overlay"></div>
 <div id="wrapper">
-	<h1>Let's Rand imgur!</h1>
-	<hr />
-	<textarea id="forumCode"></textarea>
-	<br>
-    <div>
-    <span style="float: left;">
-        <button type="button" id="genImgur">Generate</button>
-        <input type="text" id="needImages" value="5" style="width: 30px;" />
+    <h1>Let's Rand imgur!</h1>
+    <hr/>
+    <textarea id="output" title="output"></textarea>
+    <br>
+    <div style="float: left;">
+        <input type="button" value="Generate" onClick="start()"/>
+        <input type="text" id="quantity" title="quantity" value="5"/>
         imgur images!
-    </span>
-    <span id="doneImages" style="float: right;">(Ready)</span>
     </div>
-    <div id="progress-bar"><span id="progress"></span></div>
+    <div id="result" style="float: right;"></div>
+    <div id="progress-bar">
+        <span id="progress"></span>
+    </div>
 </div>
-<div id="tempStorage"></div>
+<div id="temp"></div>
+<script src="main.js"></script>
 </body>
 </html>
