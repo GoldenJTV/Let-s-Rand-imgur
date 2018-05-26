@@ -12,6 +12,12 @@ function getRandomInt (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function getRandomExt () {
+  var exts = ['.jpg', '.png', '.gif'];
+  var index = getRandomInt(0, exts.length - 1);
+  return exts[index];
+}
+
 function getRandomImgurId () {
   var base = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   var id = '';
@@ -24,13 +30,13 @@ function getRandomImgurId () {
 }
 
 function getRandomImgurImage () {
-  var imageRoot = 'https://i.imgur.com/';
+  var base = 'https://i.imgur.com/';
   var exts = ['.jpg', '.png', '.gif'];
   var id = getRandomImgurId();
-  var ext = exts[getRandomInt(0, exts.length - 1)];
+  var ext = getRandomExt();
   var image = new Image();
   image.id = id;
-  image.src = imageRoot + id + ext;
+  image.src = base + id + ext;
   return image;
 }
 
