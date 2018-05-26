@@ -14,19 +14,10 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
-# =========================
-# Operating System Files
-# =========================
-
-# OSX
-# =========================
-
+# macOS
 .DS_Store
 .AppleDouble
 .LSOverride
-
-# Icon must ends with two \r.
-Icon
 
 # Thumbnails
 ._*
@@ -34,3 +25,6 @@ Icon
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
+
+# IntelliJet
+.idea/
