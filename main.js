@@ -1,10 +1,10 @@
 var body = document.getElementsByTagName('body')[0];
 var output = document.getElementById('output');
-var result = document.getElementById('result');
-var progress = document.getElementById('progress');
+var progressBar = document.getElementById('progress-bar');
 var temp = document.getElementById('temp');
+var generateButton = document.getElementById('generate-button');
 
-result.innerText = '(Ready)';
+generateButton.addEventListener('click', start);
 
 function getRandomInt (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -61,8 +61,8 @@ function generate (quantity, callback) {
         } else {
           numDone++;
           images.push(this);
-          progress.style.width = (images.length / quantity) * 100 + '%';
-          result.innerText = '(' + images.length + ' done.)';
+          this.remove();
+          progressBar.style.width = (images.length / quantity) * 100 + '%';
           if (numDone === quantity) {
             clearInterval(generator);
             callback(images);
@@ -78,25 +78,30 @@ function generate (quantity, callback) {
 }
 
 function clear () {
-  progress.style.width = '0';
+  progressBar.style.width = '0';
   temp.innerHTML = '';
 }
 
 function start () {
+  var quantity = document.getElementById('quantity');
+  var _quantity = parseInt(quantity.value);
+  if (isNaN(_quantity)) return;
   clear();
-  body.className = 'generating';
   output.value = 'Generating...';
-  result.innerText = '(0 done.)';
-  var quantity = document.getElementById('quantity').value;
-  quantity = parseInt(quantity);
-  generate(quantity, function (images) {
-    body.className = '';
+  generateButton.setAttribute('disabled', true);
+  quantity.setAttribute('disabled', true);
+  output.setAttribute('disabled', true);
+  progressBar.classList.add('progress-bar-animated');
+  generate(_quantity, function (images) {
+    output.removeAttribute('disabled');
+    generateButton.removeAttribute('disabled');
+    quantity.removeAttribute('disabled');
+    progressBar.classList.remove('progress-bar-animated');
     output.value = images.map(function (image) {
-      return '\[img\]' + image.src + '\[\/img\]'
+      return '\[img\]' + image.src + '\[\/img\]';
     }).join('\n');
     output.selectionStart = 0;
     output.selectionEnd = output.value.length;
     output.focus();
-    result.innerText = '(All done!)';
   });
 }
