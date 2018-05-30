@@ -1,10 +1,25 @@
 var output = document.getElementById('output');
+var generateButton = document.getElementById('generate-button');
+var quantity = document.getElementById('quantity');
 var progressBar = document.getElementById('progress-bar');
 var temp = document.getElementById('temp');
-var generateButton = document.getElementById('generate-button');
 
-generateButton.addEventListener('click', start);
+generateButton.addEventListener('click', function () {
+  var _quantity = parseInt(quantity.value);
+  if (isNaN(_quantity)) return;
+  clear();
+  disableElements();
+  animateProgressBar();
+  generate(_quantity, function (images) {
+    enableElements();
+    unanimateProgressBar();
+    displayResult(images);
+  });
+});
 
+/**
+ * Helper functions
+ */
 function getRandomInt (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -28,7 +43,6 @@ function getRandomImgurId () {
 
 function getRandomImgurImage () {
   var base = 'https://i.imgur.com/';
-  var exts = ['.jpg', '.png', '.gif'];
   var id = getRandomImgurId();
   var ext = getRandomExt();
   var image = new Image();
@@ -48,6 +62,7 @@ function generate (quantity, callback) {
   var numTemp = 0;
   var numDone = 0;
   var images = [];
+  output.value = 'Generating...';
   var generator = setInterval(function () {
     if (numTemp < quantity) {
       numTemp++;
@@ -81,26 +96,31 @@ function clear () {
   temp.innerHTML = '';
 }
 
-function start () {
-  var quantity = document.getElementById('quantity');
-  var _quantity = parseInt(quantity.value);
-  if (isNaN(_quantity)) return;
-  clear();
-  output.value = 'Generating...';
+function animateProgressBar () {
+  progressBar.classList.add('progress-bar-animated');
+}
+
+function unanimateProgressBar () {
+  progressBar.classList.remove('progress-bar-animated');
+}
+
+function enableElements () {
+  output.removeAttribute('disabled');
+  generateButton.removeAttribute('disabled');
+  quantity.removeAttribute('disabled');
+}
+
+function disableElements () {
+  output.setAttribute('disabled', true);
   generateButton.setAttribute('disabled', true);
   quantity.setAttribute('disabled', true);
-  output.setAttribute('disabled', true);
-  progressBar.classList.add('progress-bar-animated');
-  generate(_quantity, function (images) {
-    output.removeAttribute('disabled');
-    generateButton.removeAttribute('disabled');
-    quantity.removeAttribute('disabled');
-    progressBar.classList.remove('progress-bar-animated');
-    output.value = images.map(function (image) {
-      return '\[img\]' + image.src + '\[\/img\]';
-    }).join('\n');
-    output.selectionStart = 0;
-    output.selectionEnd = output.value.length;
-    output.focus();
-  });
+}
+
+function displayResult (images) {
+  output.value = images.map(function (image) {
+    return '\[img\]' + image.src + '\[\/img\]';
+  }).join('\n');
+  output.selectionStart = 0;
+  output.selectionEnd = output.value.length;
+  output.focus();
 }
