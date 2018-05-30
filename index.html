@@ -3,27 +3,52 @@
 <head>
   <meta charset="utf-8">
   <title>Let's Rand imgur!</title>
-  <link href="style.css" rel="stylesheet"/>
+  <!-- Responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="css/bootstrap.min.css"/>
+  <!-- Custom stylesheet -->
+  <link href="css/main.css" rel="stylesheet"/>
 </head>
 
 <body>
-<div id="overlay"></div>
-<div id="wrapper">
-  <h1>Let's Rand imgur!</h1>
-  <hr/>
-  <textarea id="output" title="output"></textarea>
-  <br>
-  <div style="float: left;">
-    <input type="button" value="Generate" onClick="start()"/>
-    <input type="text" id="quantity" title="quantity" value="5"/>
-    imgur images!
+<div class="container">
+  <h1 class="text-center mt-3">Let's Rand imgur!</h1>
+  <div class="row">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
+      <textarea id="output" class="form-control my-3" title="output"></textarea>
+    </div>
   </div>
-  <div id="result" style="float: right;"></div>
-  <div id="progress-bar">
-    <span id="progress"></span>
+  <div class="row">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
+      <div class="input-group mx-auto">
+        <div class="input-group-prepend">
+          <button id="generate-button" class="btn btn-primary" type="button" aria-label="Generate">Generate</button>
+        </div>
+        <input
+            type="text"
+            id="quantity"
+            class="form-control"
+            value="5"
+            placeholder="Number of images"
+            aria-label="Number of images"
+        />
+        <div class="input-group-append">
+          <span class="input-group-text">imgur images</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row my-3">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
+      <div class="progress">
+        <div id="progress-bar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0"
+             aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+    </div>
   </div>
 </div>
 <div id="temp"></div>
-<script src="main.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
