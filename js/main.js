@@ -1,4 +1,3 @@
-var body = document.getElementsByTagName('body')[0];
 var output = document.getElementById('output');
 var progressBar = document.getElementById('progress-bar');
 var temp = document.getElementById('temp');
