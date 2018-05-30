@@ -40,8 +40,8 @@ function getRandomImgurImage () {
 
 function isRemoved (image) {
   return (
-    image.offsetWidth == 161
-    && image.offsetHeight == 81
+    image.offsetWidth === 161
+    && image.offsetHeight === 81
   );
 }
 
