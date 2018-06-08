@@ -1,10 +1,16 @@
 var output = document.getElementById('output');
+var formats = document.getElementsByClassName('formats');
 var generateButton = document.getElementById('generate-button');
 var quantity = document.getElementById('quantity');
 var progressBar = document.getElementById('progress-bar');
 var temp = document.getElementById('temp');
 
 generateButton.addEventListener('click', function () {
+  var formats = getEnabledFormats();
+  if (!formats.length) {
+    output.value = 'Please select at least one image format';
+    return;
+  }
   var _quantity = parseInt(quantity.value);
   if (isNaN(_quantity)) return;
   clear();
@@ -24,10 +30,20 @@ function getRandomInt (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function getRandomExt () {
-  var exts = ['jpg', 'png', 'gif', 'webp'];
-  var index = getRandomInt(0, exts.length - 1);
-  return exts[index];
+function getEnabledFormats () {
+  var _formats = [];
+  each(formats, function (format) {
+    if (format.checked) {
+      _formats.push(format.value);
+    }
+  });
+  return _formats;
+}
+
+function getRandomFormat () {
+  var formats = getEnabledFormats();
+  var index = getRandomInt(0, formats.length - 1);
+  return formats[index];
 }
 
 function getRandomImgurId () {
@@ -44,10 +60,10 @@ function getRandomImgurId () {
 function getRandomImgurImage () {
   var base = 'https://i.imgur.com/';
   var id = getRandomImgurId();
-  var ext = getRandomExt();
+  var format = getRandomFormat();
   var image = new Image();
   image.id = id;
-  image.src = base + id + '.' + ext;
+  image.src = base + id + '.' + format;
   return image;
 }
 
@@ -108,12 +124,18 @@ function enableElements () {
   output.removeAttribute('disabled');
   generateButton.removeAttribute('disabled');
   quantity.removeAttribute('disabled');
+  each(formats, function (format) {
+    format.removeAttribute('disabled');
+  });
 }
 
 function disableElements () {
-  output.setAttribute('disabled', true);
-  generateButton.setAttribute('disabled', true);
-  quantity.setAttribute('disabled', true);
+  output.setAttribute('disabled', '');
+  generateButton.setAttribute('disabled', '');
+  quantity.setAttribute('disabled', '');
+  each(formats, function (format) {
+    format.setAttribute('disabled', '');
+  });
 }
 
 function displayResult (images) {
@@ -123,4 +145,10 @@ function displayResult (images) {
   output.selectionStart = 0;
   output.selectionEnd = output.value.length;
   output.focus();
+}
+
+function each (elements, fn) {
+  for (var i = 0; i < elements.length; i++) {
+    fn(elements.item(i));
+  }
 }
