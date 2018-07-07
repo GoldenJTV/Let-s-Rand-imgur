@@ -1,8 +1,8 @@
 # Let-s-Rand-imgur
 
-A random [imgur](https://imgur.com/) image URLs generator.
+Random [imgur](https://imgur.com/) image URLs generator.
 
-For HKGolden Forum/LIHKG random imgur life-playing post.
+URLs are output with `[img]` BBCode, convenient for posting to online forums.
 
 ## License
 MIT License
